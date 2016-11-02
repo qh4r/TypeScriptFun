@@ -24,8 +24,27 @@ let house : Address;
 //    test: "Sobieskiego"
 //}; nie zadziala wymagany typ Address
 
-//noinspection TsLint
+//dziala
 house = {
     street: 'Kazimierza',
     apartment: 5
 };
+
+//union type
+
+let dupa : string | boolean;
+//teraz dupa moze byc stringiem lub boolem
+// dupa = 23; // nie zadziala
+dupa = false;
+dupa = "asd";
+
+//sprawdzanie typow
+console.log(typeof dupa == "string");
+console.log(typeof dupa == "boolean"); //false
+
+//WSZYSTKO JEST DOMYSLNIE USTAWIANE NA UNDEFINED A DOMYSLNY TYP (GDY NIE PODAMY GO ANI NIE ZAINICJALIZUJEMY JAWNIE) - TO ANY
+let isNullable = 12;
+isNullable = null; // jest nulowalny
+
+//MOZNA ZMIENIC TO USTAWIENIE NA NIENULLOWALNE ustawiajac "strictNullChecks" w tscconfig na true
+// nie ejst to wspierane przez intelisense webstorma?
