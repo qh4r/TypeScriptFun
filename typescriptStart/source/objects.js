@@ -12,9 +12,9 @@ var object2 = {
     name: "Długa"
 };
 var house;
-//house = {
+// house = {
 //    test: "Sobieskiego"
-//}; nie zadziala wymagany typ Address
+// }; //nie zadziala wymagany typ Address
 //dziala
 house = {
     street: 'Kazimierza',
@@ -32,5 +32,6 @@ console.log(typeof dupa == "boolean"); //false
 //WSZYSTKO JEST DOMYSLNIE USTAWIANE NA UNDEFINED A DOMYSLNY TYP (GDY NIE PODAMY GO ANI NIE ZAINICJALIZUJEMY JAWNIE) - TO ANY
 var isNullable = 12;
 isNullable = null; // jest nulowalny
-//MOZNA ZMIENIC TO USTAWIENIE NA NIENULLOWALNE ustawiajac "strictNullChecks" w tscconfig na true 
+//MOZNA ZMIENIC TO USTAWIENIE NA NIENULLOWALNE ustawiajac "strictNullChecks" w tscconfig na true
+// nie ejst to wspierane przez intelisense webstorma? 
 //# sourceMappingURL=objects.js.map

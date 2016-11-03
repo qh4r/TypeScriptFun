@@ -20,9 +20,9 @@ let object2 : {name: string, length: number} = { // jawna dekalracja typow
 type Address = {street: string, block?: string, apartment: number};
 
 let house : Address;
-//house = {
+// house = {
 //    test: "Sobieskiego"
-//}; nie zadziala wymagany typ Address
+// }; //nie zadziala wymagany typ Address
 
 //dziala
 house = {

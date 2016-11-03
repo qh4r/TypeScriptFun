@@ -28,4 +28,16 @@ console.log('wywloanie', PerformNumericCalc(Add, 23, 21, 53, 321));
 var func;
 func = function (v1, v2) { return v1 % v2; };
 console.log('mod: ', func(12, 7));
-//# sourceMappingURL=functions.js.map
+var test = function (input, interval) {
+    if (input === void 0) { input = 2; }
+    // default nie musi byc ostatnią warością
+    setTimeout(function () {
+        console.log(input -= 1);
+        if (input > 0) {
+            test(input, 200);
+        }
+    }, 1000);
+};
+console.log(test(5, 100));
+console.log(test(undefined, 1000)); // undefined przyjmuje wartosc domyslna
+console.log(test(null, 2000)); // przyjmuje na start wartosc 1? -- null jest rzutowany na 0!

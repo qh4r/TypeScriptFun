@@ -36,5 +36,25 @@ enum Marka {
 }
 
 let fura : Marka = Marka.Fiat;
-console.log(fura) // integer po stronie jsa
-console.log(Marka)
+console.log(fura); // integer po stronie jsa
+console.log(Marka);
+
+let typeAny; //implicit any
+// NO IMPLICIT ANY w cfg SPRAWIA ŻE TAKA DEKLARACJA BEZ TYPU LUB INFERENCJI JEST ZABRONIONA
+let otherAny: any; // takie any jest dopuszczalne
+typeAny = 12;
+typeAny = "asd";
+
+const immutable = 3;
+// immutable = 5; //const nie mozna zmienic ofc
+
+{
+    var outBlock: any;
+    let inBlock: any;
+}
+
+outBlock = 5;
+// inBlock = 34; // nie istnieje bo let przypisuje do bloku {}
+
+// w typescripcie nie da sie zadeklarowac nowej zmiennej bez var,let lub const
+// tak jak w es5 w trybie use strict
