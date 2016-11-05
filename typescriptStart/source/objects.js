@@ -43,3 +43,4 @@ console.log(severity); //error alias przesłonił nazwe
 var severity = dest.severity, id = dest.user.id; // zaglebienie
 //console.log(user) // blad nie ma usera, zostal wykorzystany tylko jako sposob na dostep glebiej
 console.log(severity, id);
+//# sourceMappingURL=objects.js.map
