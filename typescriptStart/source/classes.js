@@ -36,6 +36,7 @@ var Engine = (function () {
     return Engine;
 }());
 var Vehicle = (function () {
+    // public name: string - od razu tworzy publiczne pole i nicjalizuje je
     function Vehicle(engine, name) {
         this.name = name;
         // this[EngineSymbol] = engine;
