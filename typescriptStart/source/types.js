@@ -45,4 +45,3 @@ outBlock = 5;
 // inBlock = 34; // nie istnieje bo let przypisuje do bloku {}
 // w typescripcie nie da sie zadeklarowac nowej zmiennej bez var,let lub const
 // tak jak w es5 w trybie use strict 
-//# sourceMappingURL=types.js.map

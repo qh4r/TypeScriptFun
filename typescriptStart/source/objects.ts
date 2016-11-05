@@ -48,3 +48,16 @@ isNullable = null; // jest nulowalny
 
 //MOZNA ZMIENIC TO USTAWIENIE NA NIENULLOWALNE ustawiajac "strictNullChecks" w tscconfig na true
 // nie ejst to wspierane przez intelisense webstorma?
+
+
+//destrukturyzacja jak w es6
+const dest = {message: "Dupa", severity: 100, user: {id: 1337, name: "rafa"}};
+
+let {message, severity: problemLevel} = dest; // problem level to alias
+console.log(message, problemLevel); //ok
+console.log(severity); //error alias przesłonił nazwe
+// !!! ponizsza deklaracja (severity) zostanie zhoistowana wiec nie  bedzie errora ale powyzsza linija zwroci undefined
+
+var {severity, user: {id}} = dest; // zaglebienie
+//console.log(user) // blad nie ma usera, zostal wykorzystany tylko jako sposob na dostep glebiej
+console.log(severity, id);
