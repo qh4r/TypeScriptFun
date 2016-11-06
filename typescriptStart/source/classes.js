@@ -81,6 +81,9 @@ var MotorBoat = (function (_super) {
     function MotorBoat() {
         _super.apply(this, arguments);
     }
+    MotorBoat.printType = function () {
+        console.log("To jest klasa lodka");
+    };
     MotorBoat.prototype.promptRunning = function () {
         if (this.usedEngine.isEngineRunning) {
             console.log("Is sliding on waves on gear: " + this.gear);
@@ -96,4 +99,5 @@ Car.gear = 2;
 Car.toggleEngine();
 window.Boat = new MotorBoat(new Engine(), "Piorun");
 window.Boat.toggleEngine();
+MotorBoat.printType(); // uzycie klasy statycznej
 //# sourceMappingURL=classes.js.map

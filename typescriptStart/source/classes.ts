@@ -35,7 +35,7 @@ class Vehicle {
     private engine:Engine;
 
     // public name: string - od razu tworzy publiczne pole i nicjalizuje je
-    public constructor(engine:Engine, public name: string) {
+    public constructor(engine:Engine, public name:string) {
         // this[EngineSymbol] = engine;
         this.engine = engine;
     }
@@ -58,7 +58,7 @@ class Vehicle {
         this.promptRunning();
     }
 
-    protected get usedEngine() : Engine{
+    protected get usedEngine():Engine {
         return this.engine;
     }
 
@@ -71,6 +71,10 @@ class Vehicle {
 }
 
 class MotorBoat extends Vehicle {
+    public static printType():void {
+        console.log("To jest klasa lodka");
+    }
+
     protected  promptRunning() {
         if (this.usedEngine.isEngineRunning) {
             console.log(`Is sliding on waves on gear: ${this.gear}`)
@@ -82,7 +86,8 @@ class MotorBoat extends Vehicle {
 const Car:Vehicle = new Vehicle(new Engine(), "Mastodont");
 
 // Rozszerzenie interfejsu window o pole Car, zeby moc uzyc tam pola
-interface Window { Car: Vehicle; Boat: MotorBoat }
+interface Window { Car:Vehicle; Boat:MotorBoat
+}
 
 window.Car = Car;
 
@@ -92,3 +97,6 @@ Car.toggleEngine();
 
 window.Boat = new MotorBoat(new Engine(), "Piorun");
 window.Boat.toggleEngine();
+
+
+MotorBoat.printType(); // uzycie klasy statycznej
