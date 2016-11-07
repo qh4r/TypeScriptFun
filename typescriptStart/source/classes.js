@@ -6,12 +6,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Engine = (function () {
-    function Engine() {
-        // this[GearSymbol] = 0;
+//oczywiscie klas abstract nie da sie instancjonowac
+var EngineModel = (function () {
+    function EngineModel() {
         this.gearState = 0;
     }
-    Object.defineProperty(Engine.prototype, "gear", {
+    Object.defineProperty(EngineModel.prototype, "gear", {
         get: function () {
             // return this[GearSymbol];
             return this.gearState;
@@ -23,6 +23,15 @@ var Engine = (function () {
         enumerable: true,
         configurable: true
     });
+    return EngineModel;
+}());
+//klasa moze extendowac tylko 1 klase ale implementowac wiele interfejsow
+var Engine = (function (_super) {
+    __extends(Engine, _super);
+    function Engine() {
+        _super.call(this); // jak extenduje cos abstrakcyjnego to konstruktor wymagany
+        // this[GearSymbol] = 0;
+    }
     Object.defineProperty(Engine.prototype, "isEngineRunning", {
         get: function () {
             return this.engineRunning;
@@ -33,8 +42,11 @@ var Engine = (function () {
     Engine.prototype.toggleEngine = function (state) {
         this.engineRunning = state || !this.engineRunning;
     };
+    Engine.prototype.turnOnTurbo = function () {
+        console.log('uruchomiono turbodoladownia');
+    };
     return Engine;
-}());
+}(EngineModel));
 var Vehicle = (function () {
     // public name: string - od razu tworzy publiczne pole i nicjalizuje je
     function Vehicle(engine, name) {
@@ -93,6 +105,7 @@ var MotorBoat = (function (_super) {
     return MotorBoat;
 }(Vehicle));
 var Car = new Vehicle(new Engine(), "Mastodont");
+// let abstrakt = new EngineModel(); // nie da sie instancjonowac klasy abstrakcyjnej
 window.Car = Car;
 Car.toggleEngine();
 Car.gear = 2;

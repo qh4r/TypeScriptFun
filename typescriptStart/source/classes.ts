@@ -2,67 +2,93 @@
 // const EngineSymbol = Symbol("EngineSymbol");
 // const GearSymbol = Symbol("Gear");
 
-class Engine {
-    //Typescript way - bez symbolu
-    private engineRunning:boolean;
-    private gearState:number;
+interface IEngine {
+    // get isEngineRunning():boolean // tylko metody w interfejsach
+    turnOnTurbo(): void;
+}
 
+interface ITest {
+
+}
+
+//oczywiscie klas abstract nie da sie instancjonowac
+abstract class EngineModel {
     constructor() {
-        // this[GearSymbol] = 0;
         this.gearState = 0;
     }
 
-    public set gear(val:number) {
+    public abstract toggleEngine(state?: boolean); //metoda abstrakcyjna
+
+    // public abstract get isEngineRunning():boolean; // - blad property nie moze byc abstrakcyjna
+
+    private gearState: number;
+
+    public set gear(val: number) {
         // this[GearSymbol] = val;
         this.gearState = val;
     }
 
-    public get gear():number {
+    public get gear(): number {
         // return this[GearSymbol];
         return this.gearState;
     }
+}
 
-    public get isEngineRunning():boolean {
+//klasa moze extendowac tylko 1 klase ale implementowac wiele interfejsow
+class Engine extends EngineModel implements IEngine, ITest {
+    //Typescript way - bez symbolu
+    private engineRunning: boolean;
+
+    constructor() {
+        super(); // jak extenduje cos abstrakcyjnego to konstruktor wymagany
+        // this[GearSymbol] = 0;
+    }
+
+    public get isEngineRunning(): boolean {
         return this.engineRunning;
     }
 
-    toggleEngine(state?:boolean) {
+    toggleEngine(state?: boolean) {
         this.engineRunning = state || !this.engineRunning;
+    }
+
+    public turnOnTurbo(): void {
+        console.log('uruchomiono turbodoladownia');
     }
 }
 
 class Vehicle {
-    private engine:Engine;
+    private engine: Engine;
 
     // public name: string - od razu tworzy publiczne pole i nicjalizuje je
-    public constructor(engine:Engine, public name:string) {
+    public constructor(engine: Engine, public name: string) {
         // this[EngineSymbol] = engine;
         this.engine = engine;
     }
 
     //DOMYSLNA DOSTEPNOSC TO PUBLIC
-    get gear():number {
+    get gear(): number {
         // return this[EngineSymbol].gear;
         return this.engine.gear;
     }
 
-    set gear(newGear:number) {
+    set gear(newGear: number) {
         // this[EngineSymbol].gear = newGear;
         this.engine.gear = newGear;
         this.promptRunning();
     }
 
-    public toggleEngine(state?:boolean) {
+    public toggleEngine(state?: boolean) {
         // this[EngineSymbol] = state || !this[EngineSymbol];
         this.engine.toggleEngine(state);
         this.promptRunning();
     }
 
-    protected get usedEngine():Engine {
+    protected get usedEngine(): Engine {
         return this.engine;
     }
 
-    protected promptRunning():void {
+    protected promptRunning(): void {
         // if(this[EngineSymbol].isEngineRunning()) {
         if (this.engine.isEngineRunning) {
             console.log(`Is running on gear: ${this.gear}`)
@@ -71,7 +97,7 @@ class Vehicle {
 }
 
 class MotorBoat extends Vehicle {
-    public static printType():void {
+    public static printType(): void {
         console.log("To jest klasa lodka");
     }
 
@@ -83,11 +109,13 @@ class MotorBoat extends Vehicle {
     }
 }
 
-const Car:Vehicle = new Vehicle(new Engine(), "Mastodont");
+const Car: Vehicle = new Vehicle(new Engine(), "Mastodont");
 
 // Rozszerzenie interfejsu window o pole Car, zeby moc uzyc tam pola
-interface Window { Car:Vehicle; Boat:MotorBoat
+interface Window { Car: Vehicle; Boat: MotorBoat
 }
+
+// let abstrakt = new EngineModel(); // nie da sie instancjonowac klasy abstrakcyjnej
 
 window.Car = Car;
 
