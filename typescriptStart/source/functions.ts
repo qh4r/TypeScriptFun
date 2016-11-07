@@ -43,3 +43,4 @@ const test = function(input: number = 2, interval: number) : void {
 console.log(test(5, 100));
 console.log(test(undefined, 1000)); // undefined przyjmuje wartosc domyslna
 console.log(test(null, 2000)); // przyjmuje na start wartosc 1? -- null jest rzutowany na 0!
+

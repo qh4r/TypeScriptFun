@@ -126,5 +126,4 @@ Car.toggleEngine();
 window.Boat = new MotorBoat(new Engine(), "Piorun");
 window.Boat.toggleEngine();
 
-
 MotorBoat.printType(); // uzycie klasy statycznej
