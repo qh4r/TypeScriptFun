@@ -127,3 +127,76 @@ window.Boat = new MotorBoat(new Engine(), "Piorun");
 window.Boat.toggleEngine();
 
 MotorBoat.printType(); // uzycie klasy statycznej
+
+
+interface IPerson {
+    firstName: string;
+    lastName?: string; // opcjonalne
+    // [propName : string] : any; // dowolne pole o dowolnej nazwie
+    presentSelf(): void;
+}
+
+class Person implements IPerson {
+    // private _firstName;
+    // private _lastName;
+
+    //nie trza deklarowac zmiennych bo mozna w konstruktorze
+    // 2 arg opcjonalny - ?
+    constructor(private _firstName: string, private _lastName?: string) {
+    }
+
+    // MOZNA UTWORZYC TYLKO 1 KONSTRUKTOR
+
+    get firstName() {
+        return this._firstName;
+    }
+
+    get lastName() {
+        return this._lastName;
+    }
+
+    presentSelf() {
+        console.log(`Jestem ${this.firstName} ${this.lastName || ''} `);
+    }
+}
+
+function sayHi(person: IPerson): void {
+    console.log(`${person.firstName} mowi czesc`);
+}
+
+sayHi({
+    firstName: 'Rafał', lastName: 'Kuchar', presentSelf: function () {
+    }
+}); //ok
+sayHi({
+    firstName: 'Asia', presentSelf: function () {
+    }
+}); // ok
+// sayHi({firstName: 'Tomasz', lastName: 'Grzyb', presentSelf: function(){}, age: 37}) // nie zadziala
+// interfejs dopuszcza tylko znane typy
+
+var person1 = new Person("Krzysztof");
+person1.presentSelf();
+sayHi((person1));
+
+
+class EmptyPerson implements IPerson {
+    firstName: string;
+
+    presentSelf(): void {
+    }
+}
+
+// kosntruktor domyslny pozwala na tworzenie klas bez inicjalizacji pol
+var emptyPerson1 = new EmptyPerson();
+sayHi(emptyPerson1); // first name undefined
+
+//ponizszy interfejs sluzy do deklaracji 1 funckji
+interface FuncWithArgs {
+    (...args: number[]): number; // nazwa w ten sposob jest dowolna
+    // sumArray(...args: number[]): number; // nazwa wymagana
+}
+
+let sum: FuncWithArgs = function(...args: number[]) : number { // infernencja wymaganego typu
+    return args.reduce((s, x) => s += x * this.multiplier, 0);
+};
