@@ -23,3 +23,15 @@ console.log('chain; ', chain([1,2,31,2,14]));
 console.log('chain; ', chain<string>(["rafal, ", "asia", "stas"]));
 console.log('chain; ', chain([true, "asia", 2])); // dziala bo typ any?
 // console.log('chain; ', chain<string>([true, "asia", 2])); // ofc - blad
+
+// extends zapenwia constrainty moze byc tez implements
+class GenericClass<T extends number | string> {
+
+    addElements(arg1: T, arg2: T) : number {
+        return +arg1 + +arg2;
+    }
+}
+
+let gen1 = new GenericClass<string>();
+
+console.log(gen1.addElements("23","42"));

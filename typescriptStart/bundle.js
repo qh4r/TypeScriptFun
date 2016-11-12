@@ -3,51 +3,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var object1 = {
-    name: 'rafał',
-    age: 26
-};
-//NASTEPUJE INFERENCJA TYPU
-//od teraz utworzony obiekt musi miec pola name i age o odpowiednich typach i nic poza tym
-//object1 = {}; // error wymagane pola name i age jako string i age
-// object1 = {name: "tomasz", boring: true} // j/w brakuje age
-// object1 = {name: "tomasz", age: 32, boring: true}; // nadmiar tez odpada
-var object2 = {
-    length: 31,
-    name: "Długa"
-};
-var house;
-// house = {
-//    test: "Sobieskiego"
-// }; //nie zadziala wymagany typ Address
-//dziala
-house = {
-    street: 'Kazimierza',
-    apartment: 5
-};
-//union type
-var dupa;
-//teraz dupa moze byc stringiem lub boolem
-// dupa = 23; // nie zadziala
-dupa = false;
-dupa = "asd";
-//sprawdzanie typow
-console.log(typeof dupa == "string");
-console.log(typeof dupa == "boolean"); //false
-//WSZYSTKO JEST DOMYSLNIE USTAWIANE NA UNDEFINED A DOMYSLNY TYP (GDY NIE PODAMY GO ANI NIE ZAINICJALIZUJEMY JAWNIE) - TO ANY
-var isNullable = 12;
-isNullable = null; // jest nulowalny
-//MOZNA ZMIENIC TO USTAWIENIE NA NIENULLOWALNE ustawiajac "strictNullChecks" w tscconfig na true
-// nie ejst to wspierane przez intelisense webstorma?
-//destrukturyzacja jak w es6
-var dest = { message: "Dupa", severity: 100, user: { id: 1337, name: "rafa" } };
-var message = dest.message, problemLevel = dest.severity; // problem level to alias
-console.log(message, problemLevel); //ok
-console.log(severity); //error alias przesłonił nazwe
-// !!! ponizsza deklaracja (severity) zostanie zhoistowana wiec nie  bedzie errora ale powyzsza linija zwroci undefined
-var severity = dest.severity, id = dest.user.id; // zaglebienie
-//console.log(user) // blad nie ma usera, zostal wykorzystany tylko jako sposob na dostep glebiej
-console.log(severity, id);
 var account;
 (function (account) {
     var bank = 100;
@@ -314,6 +269,83 @@ var test = function (input, interval) {
 console.log(test(5, 100));
 console.log(test(undefined, 1000)); // undefined przyjmuje wartosc domyslna
 console.log(test(null, 2000)); // przyjmuje na start wartosc 1? -- null jest rzutowany na 0!
+// najprostszy generyk - troche bez sensu
+function process(data) {
+    return data;
+}
+console.log(process("test"));
+// console.log(process<string>(2)); // blad - bo typ string wybrany
+console.log(process(2));
+console.log(process(true));
+var arr1 = [];
+arr1.push(2);
+// arr1.push("asd"); // nie zadziala
+var arr2 = []; //rownowaznik
+arr2.push(2);
+// arr2.push("ad"); // dupa
+function chain(elems) {
+    return elems.reduce(function (s, x) { return s = s.toString() + x.toString(); }, '');
+}
+console.log('chain; ', chain([1, 2, 31, 2, 14]));
+console.log('chain; ', chain(["rafal, ", "asia", "stas"]));
+console.log('chain; ', chain([true, "asia", 2])); // dziala bo typ any?
+// console.log('chain; ', chain<string>([true, "asia", 2])); // ofc - blad
+// extends zapenwia constrainty moze byc tez implements
+var GenericClass = (function () {
+    function GenericClass() {
+    }
+    GenericClass.prototype.addElements = function (arg1, arg2) {
+        return +arg1 + +arg2;
+    };
+    return GenericClass;
+}());
+var gen1 = new GenericClass();
+console.log(gen1.addElements("23", "42"));
+var object1 = {
+    name: 'rafał',
+    age: 26
+};
+//NASTEPUJE INFERENCJA TYPU
+//od teraz utworzony obiekt musi miec pola name i age o odpowiednich typach i nic poza tym
+//object1 = {}; // error wymagane pola name i age jako string i age
+// object1 = {name: "tomasz", boring: true} // j/w brakuje age
+// object1 = {name: "tomasz", age: 32, boring: true}; // nadmiar tez odpada
+var object2 = {
+    length: 31,
+    name: "Długa"
+};
+var house;
+// house = {
+//    test: "Sobieskiego"
+// }; //nie zadziala wymagany typ Address
+//dziala
+house = {
+    street: 'Kazimierza',
+    apartment: 5
+};
+//union type
+var dupa;
+//teraz dupa moze byc stringiem lub boolem
+// dupa = 23; // nie zadziala
+dupa = false;
+dupa = "asd";
+//sprawdzanie typow
+console.log(typeof dupa == "string");
+console.log(typeof dupa == "boolean"); //false
+//WSZYSTKO JEST DOMYSLNIE USTAWIANE NA UNDEFINED A DOMYSLNY TYP (GDY NIE PODAMY GO ANI NIE ZAINICJALIZUJEMY JAWNIE) - TO ANY
+var isNullable = 12;
+isNullable = null; // jest nulowalny
+//MOZNA ZMIENIC TO USTAWIENIE NA NIENULLOWALNE ustawiajac "strictNullChecks" w tscconfig na true
+// nie ejst to wspierane przez intelisense webstorma?
+//destrukturyzacja jak w es6
+var dest = { message: "Dupa", severity: 100, user: { id: 1337, name: "rafa" } };
+var message = dest.message, problemLevel = dest.severity; // problem level to alias
+console.log(message, problemLevel); //ok
+console.log(severity); //error alias przesłonił nazwe
+// !!! ponizsza deklaracja (severity) zostanie zhoistowana wiec nie  bedzie errora ale powyzsza linija zwroci undefined
+var severity = dest.severity, id = dest.user.id; // zaglebienie
+//console.log(user) // blad nie ma usera, zostal wykorzystany tylko jako sposob na dostep glebiej
+console.log(severity, id);
 var testString = "test";
 testString = "asd";
 var num = 23;
@@ -380,25 +412,4 @@ define("modules/scripts", ["require", "exports"], function (require, exports) {
     }
     exports.multiply = multiply;
 });
-// najprostszy generyk - troche bez sensu
-function process(data) {
-    return data;
-}
-console.log(process("test"));
-// console.log(process<string>(2)); // blad - bo typ string wybrany
-console.log(process(2));
-console.log(process(true));
-var arr1 = [];
-arr1.push(2);
-// arr1.push("asd"); // nie zadziala
-var arr2 = []; //rownowaznik
-arr2.push(2);
-// arr2.push("ad"); // dupa
-function chain(elems) {
-    return elems.reduce(function (s, x) { return s = s.toString() + x.toString(); }, '');
-}
-console.log('chain; ', chain([1, 2, 31, 2, 14]));
-console.log('chain; ', chain(["rafal, ", "asia", "stas"]));
-console.log('chain; ', chain([true, "asia", 2])); // dziala bo typ any?
-// console.log('chain; ', chain<string>([true, "asia", 2])); // ofc - blad 
 //# sourceMappingURL=bundle.js.map

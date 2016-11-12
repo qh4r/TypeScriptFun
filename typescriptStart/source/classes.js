@@ -113,4 +113,67 @@ Car.toggleEngine();
 window.Boat = new MotorBoat(new Engine(), "Piorun");
 window.Boat.toggleEngine();
 MotorBoat.printType(); // uzycie klasy statycznej
+var Person = (function () {
+    // private _firstName;
+    // private _lastName;
+    //nie trza deklarowac zmiennych bo mozna w konstruktorze
+    // 2 arg opcjonalny - ?
+    function Person(_firstName, _lastName) {
+        this._firstName = _firstName;
+        this._lastName = _lastName;
+    }
+    Object.defineProperty(Person.prototype, "firstName", {
+        // MOZNA UTWORZYC TYLKO 1 KONSTRUKTOR
+        get: function () {
+            return this._firstName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Person.prototype, "lastName", {
+        get: function () {
+            return this._lastName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Person.prototype.presentSelf = function () {
+        console.log("Jestem " + this.firstName + " " + (this.lastName || '') + " ");
+    };
+    return Person;
+}());
+function sayHi(person) {
+    console.log(person.firstName + " mowi czesc");
+}
+sayHi({
+    firstName: 'Rafał', lastName: 'Kuchar', presentSelf: function () {
+    }
+}); //ok
+sayHi({
+    firstName: 'Asia', presentSelf: function () {
+    }
+}); // ok
+// sayHi({firstName: 'Tomasz', lastName: 'Grzyb', presentSelf: function(){}, age: 37}) // nie zadziala
+// interfejs dopuszcza tylko znane typy
+var person1 = new Person("Krzysztof");
+person1.presentSelf();
+sayHi((person1));
+var EmptyPerson = (function () {
+    function EmptyPerson() {
+    }
+    EmptyPerson.prototype.presentSelf = function () {
+    };
+    return EmptyPerson;
+}());
+// kosntruktor domyslny pozwala na tworzenie klas bez inicjalizacji pol
+var emptyPerson1 = new EmptyPerson();
+sayHi(emptyPerson1); // first name undefined
+var sum = function () {
+    var _this = this;
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i - 0] = arguments[_i];
+    }
+    return args.reduce(function (s, x) { return s += x * _this.multiplier; }, 0);
+};
 //# sourceMappingURL=classes.js.map
