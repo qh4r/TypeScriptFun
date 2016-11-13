@@ -3,6 +3,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var account;
 (function (account) {
     var bank = 100;
@@ -226,6 +232,23 @@ var sum = function () {
     }
     return args.reduce(function (s, x) { return s += x * _this.multiplier; }, 0);
 };
+function present(constructorFn) {
+    console.log(constructorFn);
+}
+// wypisze
+// function Student(name) {
+//     this.name = name;
+// }
+var Student = (function () {
+    function Student(name) {
+        this.name = name;
+    }
+    Student = __decorate([
+        present
+    ], Student);
+    return Student;
+}());
+var student1 = new Student("MArcin");
 function toUpper(name) {
     return name.toUpperCase();
 }

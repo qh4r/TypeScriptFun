@@ -5,7 +5,8 @@
     "outFile": "bundle.js",
     "noImplicitAny": false,
     "sourceMap": true,
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules"
