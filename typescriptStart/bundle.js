@@ -235,6 +235,7 @@ var sum = function () {
 function present(constructorFn) {
     console.log(constructorFn);
 }
+//DEKORATOR MUSI PRZYJMOWAC KONSTRUKTOR
 // wypisze
 // function Student(name) {
 //     this.name = name;
@@ -248,7 +249,33 @@ var Student = (function () {
     ], Student);
     return Student;
 }());
+function printName(constructorFn) {
+    // tak dodajemy funkcje dekoratorem
+    constructorFn.prototype.printName = function () {
+        console.log("siemanko! JESTEM " + this.name);
+    };
+}
+// fabryka
+function checkPresent(addFunction) {
+    return addFunction ? printName : null;
+}
+var Senior = (function (_super) {
+    __extends(Senior, _super);
+    function Senior(name) {
+        _super.call(this, name);
+    }
+    Senior = __decorate([
+        present,
+        // mozna dodac kilka dekoratorow
+        checkPresent(true)
+    ], Senior);
+    return Senior;
+}(Student));
 var student1 = new Student("MArcin");
+var senior1 = new Senior("Adam");
+// w ten sposob rzutujemy <>
+// bez rzutowania na any typescriptnie bedzie widzial printName na typie senior
+senior1.printName();
 function toUpper(name) {
     return name.toUpperCase();
 }
