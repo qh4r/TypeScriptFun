@@ -9,6 +9,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var account;
 (function (account) {
     var bank = 100;
@@ -276,6 +279,35 @@ var senior1 = new Senior("Adam");
 // w ten sposob rzutujemy <>
 // bez rzutowania na any typescriptnie bedzie widzial printName na typie senior
 senior1.printName();
+// method decorator
+function methodDecoratorFactory(isWritable) {
+    return function methodDecorator(target, propName, propertyDesc) {
+        propertyDesc.writable = isWritable;
+    };
+}
+// param dekorator
+function paramDecorator(target, methodName, paramIndex) {
+    console.log('second param is: ', target, methodName, paramIndex);
+}
+// istnieja tez dekoratory propet ale je pominalem
+var Calc = (function () {
+    function Calc() {
+    }
+    Calc.prototype.sum = function (arg1, arg2) {
+        return arg1 + arg2;
+    };
+    __decorate([
+        methodDecoratorFactory(false),
+        __param(1, paramDecorator)
+    ], Calc.prototype, "sum", null);
+    return Calc;
+}());
+var calc1 = new Calc();
+calc1.sum = function (arg1, arg2) {
+    return 2 * (arg1 + arg2);
+};
+console.log('suma', calc1.sum(2, 2)); //nadpisanie nie zadziala dzieki dekoratorowi
+// prop decorator
 function toUpper(name) {
     return name.toUpperCase();
 }
