@@ -19,6 +19,7 @@
   "homepage": "https://github.com/qh4r/TypeScriptFun#readme",
   "dependencies": {
     "amd": "0.0.0",
+    "jquery": "^3.1.1",
     "lite-server": "^2.2.2",
     "systemjs": "^0.19.40"
   }

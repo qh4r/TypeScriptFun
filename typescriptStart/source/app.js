@@ -7,6 +7,7 @@ testy.HALO();
 var $elem = document.createElement("h1");
 $elem.innerText = "DZIALA";
 document.querySelector('body').appendChild($elem);
+
 //nie dziala i chuj
 // import {sum, multiply} from 'source/modules/scripts';
 //
